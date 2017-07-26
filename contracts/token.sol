@@ -32,13 +32,17 @@ contract MyToken is owned {
     mapping (address => mapping (address => uint256)) public allowance;
 
     /* This generates a public event on the blockchain that will notify clients */
-    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Transfer(address indexed from, address indexed to, uint256 amount);
 
     /* This notifies clients about the amount burnt */
-    event Burn(address indexed from, uint256 value);
+    event Burn(address indexed from, uint256 amount);
 
     /* This notifies clients about the amount minted */
-    event Mint(uint256 value);
+    event Mint(uint256 amount);
+
+    event Redeem(uint256 value);
+
+    event Price(uint256 value);
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function MyToken(
@@ -66,10 +70,12 @@ contract MyToken is owned {
 
     function setPrice(uint256 newBuyPrice) onlyOwner {
         buyPrice = newBuyPrice;
+        Price(newBuyPrice);
     }
 
     function buy() payable returns (uint amount) {
         amount = msg.value / buyPrice;                     // calculates the amount
+        require(amount >= 1);
         require(balanceOf[this] >= amount);                // checks if it has enough to sell
         balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
         balanceOf[this] -= amount;                         // subtracts amount from seller's balance
@@ -79,6 +85,7 @@ contract MyToken is owned {
 
     function redeemEtherToOwner() onlyOwner {
         owner.transfer(this.balance);
+        Redeem(this.balance);
     }
 
     /* Send coins */
