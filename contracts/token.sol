@@ -40,7 +40,7 @@ contract MyToken is owned {
     /* This notifies clients about the amount minted */
     event Mint(uint256 amount);
 
-    event Redeem(uint256 value);
+    event Redeem(address indexed toOwner, uint256 value);
 
     event Price(uint256 value);
 
@@ -96,7 +96,7 @@ contract MyToken is owned {
     }
 
     function redeemEtherToOwner() onlyOwner {
-        Redeem(this.balance);
+        Redeem(owner, this.balance);
         owner.transfer(this.balance);
     }
 
