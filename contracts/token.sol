@@ -1,7 +1,25 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
+
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
-contract MyToken {
+contract owned {
+    address public owner;
+
+    function owned() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function transferOwnership(address newOwner) onlyOwner {
+        owner = newOwner;
+    }
+}
+
+contract MyToken is owned {
     /* Public variables of the token */
     string public standard = 'Token 0.1';
     string public name;
@@ -19,18 +37,48 @@ contract MyToken {
     /* This notifies clients about the amount burnt */
     event Burn(address indexed from, uint256 value);
 
+    /* This notifies clients about the amount minted */
+    event Mint(uint256 value);
+
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function MyToken(
         uint256 initialSupply,
         string tokenName,
         uint8 decimalUnits,
         string tokenSymbol
-        ) {
-        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
+    ) {
+        owner = msg.sender;
+        balanceOf[this] = initialSupply;                    // Give the contract all initial tokens
         totalSupply = initialSupply;                        // Update total supply
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
         decimals = decimalUnits;                            // Amount of decimals for display purposes
+        buyPrice = 1000000000000000000;
+    }
+
+    function mintToken(uint256 mintedAmount) onlyOwner {
+        balanceOf[this] += mintedAmount;
+        totalSupply += mintedAmount;
+        Mint(mintedAmount);
+    }
+
+    uint256 public buyPrice;
+
+    function setPrice(uint256 newBuyPrice) onlyOwner {
+        buyPrice = newBuyPrice;
+    }
+
+    function buy() payable returns (uint amount) {
+        amount = msg.value / buyPrice;                     // calculates the amount
+        require(balanceOf[this] >= amount);                // checks if it has enough to sell
+        balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balanceOf[this] -= amount;                         // subtracts amount from seller's balance
+        Transfer(this, msg.sender, amount);                // execute an event reflecting the change
+        return amount;                                     // ends function and returns
+    }
+
+    function redeemEtherToOwner() onlyOwner {
+        owner.transfer(this.balance);
     }
 
     /* Send coins */
@@ -58,7 +106,7 @@ contract MyToken {
             spender.receiveApproval(msg.sender, _value, this, _extraData);
             return true;
         }
-    }        
+    }
 
     /* A contract attempts to get the coins */
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
