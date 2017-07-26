@@ -57,7 +57,7 @@ contract MyToken is owned {
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
         decimals = decimalUnits;                            // Amount of decimals for display purposes
-        buyPrice = 1000000000000000000;
+        buyPrice = 1 ether;
     }
 
     function mintToken(uint256 mintedAmount) onlyOwner {
@@ -68,9 +68,9 @@ contract MyToken is owned {
 
     uint256 public buyPrice;
 
-    function setPrice(uint256 newBuyPrice) onlyOwner {
-        buyPrice = newBuyPrice;
-        Price(newBuyPrice);
+    function setPrice(uint256 newBuyPriceInEther) onlyOwner {
+        buyPrice = newBuyPriceInEther * 1 ether;
+        Price(newBuyPriceInEther);
     }
 
     function buy() payable returns (uint amount) {
