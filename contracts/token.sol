@@ -96,8 +96,8 @@ contract MyToken is owned {
     }
 
     function redeemEtherToOwner() onlyOwner {
-        owner.transfer(this.balance);
         Redeem(this.balance);
+        owner.transfer(this.balance);
     }
 
     /* Send coins */
