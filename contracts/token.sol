@@ -44,9 +44,14 @@ contract MyToken is owned {
 
     event Price(uint256 value);
 
+    event Deadline(uint timestamp);
+
+    uint public deadline;
+
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function MyToken(
         uint256 initialSupply,
+        uint durationInHours,
         string tokenName,
         uint8 decimalUnits,
         string tokenSymbol
@@ -58,6 +63,7 @@ contract MyToken is owned {
         symbol = tokenSymbol;                               // Set the symbol for display purposes
         decimals = decimalUnits;                            // Amount of decimals for display purposes
         buyPrice = 1 ether;
+        deadline = now + durationInHours * 1 hours;
     }
 
     function mintToken(uint256 mintedAmount) onlyOwner {
@@ -73,7 +79,13 @@ contract MyToken is owned {
         Price(newBuyPriceInEther);
     }
 
+    function prolong(uint durationInHours) onlyOwner {
+        deadline += durationInHours * 1 hours;
+        Deadline(deadline);
+    }
+
     function buy() payable returns (uint amount) {
+        require(now < deadline);
         amount = msg.value / buyPrice;                     // calculates the amount
         require(amount >= 1);
         require(balanceOf[this] >= amount);                // checks if it has enough to sell
