@@ -38,7 +38,7 @@ contract MyToken is owned {
     event Burn(address indexed from, uint256 amount);
 
     /* This notifies clients about the amount minted */
-    event Mint(uint256 amount);
+    event Mint(address indexed to, uint256 amount);
 
     event Redeem(address indexed toOwner, uint256 value);
 
@@ -66,10 +66,10 @@ contract MyToken is owned {
         deadline = now + durationInHours * 1 hours;
     }
 
-    function mintToken(uint256 mintedAmount) onlyOwner {
-        balanceOf[this] += mintedAmount;
+    function mintToken(address target, uint256 mintedAmount) onlyOwner {
+        balanceOf[target] += mintedAmount;
         totalSupply += mintedAmount;
-        Mint(mintedAmount);
+        Mint(target, mintedAmount);
     }
 
     uint256 public buyPrice;
