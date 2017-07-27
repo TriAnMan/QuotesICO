@@ -28,7 +28,9 @@
 
 ## Как приобрести SmartQuotes токен
 
-Вы можете приобрести SmartQuotes токен в ходе **уникального ICO**, которое продолжится до 27 июля 2017 года в 19:30 MSK
+1. **SmartQuotes токен торгуется на бирже [EtherDelta](https://etherdelta.github.io/#0x4a0703d1d250ceff2912c78844f35cd7e764c577-ETH)**
+
+2. Вы можете приобрести SmartQuotes токен в ходе **уникального ICO**, которое продолжится до 27 июля 2017 года в 19:30 MSK
 Для приобретения одного токена переведите 1 ETH по адресу токена в сети Ethereum.
 
 Реквизиты ERC20 токена для кошельков Ethereum:
@@ -41,4 +43,4 @@ Symbol: SQ1
 
 Name: SmartQuotes
 
-**Так же SmartQuotes торгуется на бирже [EtherDelta](https://etherdelta.github.io/#0x4a0703d1d250ceff2912c78844f35cd7e764c577-ETH)**
+
