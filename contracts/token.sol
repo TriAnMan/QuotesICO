@@ -84,15 +84,14 @@ contract MyToken is owned {
         Deadline(deadline);
     }
 
-    function buy() payable returns (uint amount) {
+    function () payable {
         require(now < deadline);
-        amount = msg.value / buyPrice;                     // calculates the amount
+        uint amount = msg.value / buyPrice;                // calculates the amount
         require(amount >= 1);
         require(balanceOf[this] >= amount);                // checks if it has enough to sell
         balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
         balanceOf[this] -= amount;                         // subtracts amount from seller's balance
         Transfer(this, msg.sender, amount);                // execute an event reflecting the change
-        return amount;                                     // ends function and returns
     }
 
     function redeemEtherToOwner() onlyOwner {
