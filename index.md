@@ -24,40 +24,19 @@
 ## Что дает SmartQuotes токен
 
 Один токен дает право бесплатного получения котировок одним смарт-контрактом по одной из транслируемых позиций.
+Если же у вас нет токена, то на каждый запрос котировок вам надо будет пречислять опреденный объем ETH (помимо газа).
 
+## Как приобрести SmartQuotes токен
 
-You can use the [editor on GitHub](https://github.com/TriAnMan/QuotesICO/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Вы можете приобрести SmartQuotes токен в ходе уникального ICO, которое продолжится до 27 июля 2017 года в 19:30 MSK
+Для приобретения одного токена переведите 1 ETH по адресу токена в сети Ethereum.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Реквизиты ERC20 токена для кошельков Ethereum:
 
-### Markdown
+Token Address: [0x4A0703d1D250ceFf2912C78844F35cd7e764C577](https://etherscan.io/token/0x4a0703d1d250ceff2912c78844f35cd7e764c577)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Decimals: 0
 
-```markdown
-Syntax highlighted code block
+Symbol: SQ1
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/TriAnMan/QuotesICO/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Name: SmartQuotes
